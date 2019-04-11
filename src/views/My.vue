@@ -1,15 +1,7 @@
 <template>
-    <div class="my">
-
-    </div>
+   <router-view></router-view>
 </template>
 
 <script>
-    export default {
-        name: "My"
-    }
+
 </script>
-
-<style scoped>
-
-</style>

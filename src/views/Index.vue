@@ -1,29 +1,18 @@
 <template>
-  <div class="home">
-    <Row>
-      <Col span="6"><Book /></Col>
-      <Col span="6">col-6</Col>
-      <Col span="6">col-6</Col>
-      <Col span="6">col-6</Col>
-      <Col span="6">col-6</Col>
-      <Col span="6">col-6</Col>
-      <Col span="6">col-6</Col>
-      <Col span="6">col-6</Col>
-    </Row>
-  </div>
+
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Book from '@/components/book.vue'; // @ is an alias to /src
+<script>
 
-@Component({
-  components: {
-    Book,
-  },
-})
-export default class Index extends Vue {}
+  export default {
+    created() {
+      this.$store.commit('show_tabShow');
+
+
+    },
+
+  }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 
 </style>

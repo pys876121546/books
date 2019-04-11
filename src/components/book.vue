@@ -6,7 +6,10 @@
 
 <script>
     export default {
-        name: "Index"
+        name: "Index",
+        created(){
+            this.$store.commit('show_tabShow');
+        }
     }
 </script>
 

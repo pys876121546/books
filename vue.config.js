@@ -7,7 +7,7 @@ module.exports = {
     // 默认情况下，Vue CLI假设您的应用程序将部署在域的根目录下。
     // https://www.my-app.com/。如果应用程序部署在子路径上，则需要使用此选项指定子路径。例如，如果您的应用程序部署在https://www.foobar.com/my-app/，集baseUrl到'/my-app/'.
 
-    baseUrl: process.env.NODE_ENV === 'production' ? '/online/' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/online/' : '/',
 
     // outputDir: 在npm run build时 生成文件的目录 type:string, default:'dist'
 
@@ -38,27 +38,49 @@ module.exports = {
 
     //   lintOnSave：{ type:Boolean default:true } 问你是否使用eslint
     lintOnSave: true,
+
     // productionSourceMap：{ type:Bollean,default:true } 生产源映射
-    // 如果您不需要生产时的源映射，那么将此设置为false可以加速生产构建
-    productionSourceMap: false,
+    // 如果您不需要生产时的源映射，那么将此设置为false可以加px速生产构建
+    productionSourceMap: true,
+
     // devServer:{type:Object} 3个属性host,port,https
     // 它支持webPack-dev-server的所有选项
 
     devServer: {
-        port: 3000, // 端口号
-        host: 'localhost',
+        port: 8080, // 端口号
+        host: '0.0.0.0',
         https: false, // https:{type:Boolean}
         open: true, //配置自动启动浏览器
         // proxy: 'http://localhost:4000' // 配置跨域处理,只有一个代理
         proxy: {
             '/api': {
-                target: 'http://127.0.0.1/',   // 需要请求的地址
+                target: 'http://127.0.0.1:3000/',   // 需要请求的地址
                 changeOrigin: true,  // 是否跨域
                 pathRewrite: {
-                    '^/api': '/'  // 替换target中的请求地址，也就是说，在请求的时候，url用'/proxy'代替'http://ip.taobao.com'
+                    '^/api': ''  // 替换target中的请求地址，也就是说，在请求的时候，url用'/proxy'代替'http://ip.taobao.com'
                 }
             }
 
         },  // 配置多个代理
+    },
+
+    css: {
+        loaderOptions: {
+            sass: {
+                data: `@important "@/common/base.scss";`
+            }
+        }
+    },
+
+    pwa: {
+        workboxPluginMode: 'InjectManifest',
+        name: '睿读',
+        themeColor: '#af0202',
+        appleMobileWebAppCapable: 'yes',
+        workboxOptions: {
+            // 自定义的service worker文件的位置
+            swSrc: 'src/service-worker.js',
+            // ...other Workbox options...
+        }
     }
 }
