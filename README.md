@@ -4,7 +4,7 @@
 
 采用技术有 epubjs、axios、iview、vue-route、vuex等
 
-配套后台为books-server
+配套后台为koa-book
 
 ## Project setup
 ```
