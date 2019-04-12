@@ -176,7 +176,7 @@
                     color: #fff;
                     font-weight: 600;
                     font-size: 1.2rem;
-                    height: 6vh;
+                    height: 40px;
                     margin-left: 10px;
                 }
 

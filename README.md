@@ -33,3 +33,15 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+#预览图片
+
+![image](./preview/WX20190412-161210.png)
+#
+![image](./preview/WX20190412-161041.png)
+#
+![image](./preview/WX20190412-161229.png)
+#
+![image](./preview/WX20190412-161400.png)
+#
+![image](./preview/WX20190412-161428.png)
