@@ -28,4 +28,36 @@ workbox.routing.registerRoute(
     new RegExp('.*experiment_types.*'),
     workbox.strategies.networkFirst()
 )
+orkbox.routing.registerRoute(
+    new RegExp('.*\.html'),
+workbox.strategies.networkFirst()
+);
+
+workbox.routing.registerRoute(
+    new RegExp('.*\.(?:js|css)'),
+    workbox.strategies.cacheFirst()
+);
+
+workbox.routing.registerRoute(
+    new RegExp('http://your\.cdn\.com/'),
+    workbox.strategies.staleWhileRevalidate()
+);
+
+workbox.routing.registerRoute(
+    new RegExp('http://your\.img\.cdn\.com/'),
+    workbox.strategies.cacheFirst({
+        cacheName: 'example:img'
+    })
+);
+workbox.routing.registerRoute(
+    new RegExp('https://your\.cdn\.com/'),
+    workbox.strategies.staleWhileRevalidate()
+);
+
+workbox.routing.registerRoute(
+    new RegExp('https://your\.img\.cdn\.com/'),
+    workbox.strategies.cacheFirst({
+        cacheName: 'example:img'
+    })
+);
 

@@ -210,6 +210,7 @@
             }
         },
         created() {
+            this.$store.commit('show_tabShow');
             this.spin= false
             this.listH = (`${document.documentElement.clientHeight}`*1 - 102)+'px'
             this.getlunbo();

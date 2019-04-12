@@ -165,9 +165,6 @@ const router = new Router({
         {
             path: '/uploadbooks',
             name: 'uploadbooks',
-            meta: {
-                requireAuth: true
-            },
             component: () => import(/* webpackChunkName: "about" */ './views/UpLoadBooks.vue'),
             children: []
         },

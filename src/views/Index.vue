@@ -6,7 +6,7 @@
 
   export default {
     created() {
-       this.$store.commit('show_tabShow');
+
       //   this.$lf.getItem('sessionId').then(value=> {
       //       if (value != "undefined" && value != undefined) {// 判断是否登录
       //

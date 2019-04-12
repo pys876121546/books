@@ -111,8 +111,7 @@
             },
             nextPage(){
                 if(this.rendition){
-                    this.book.navigation.load('20')
-                   // this.rendition.next();
+                    this.rendition.next();
                     this.locations = this.book.locations
                     console.log(this.locations)
                     this.animate_name ='hide'

@@ -258,7 +258,7 @@
                             //处理
                             if(5 <= this.userdata.password.length <= 15){
                                 if(this.userdata.password == this.repassword){
-                                    if(this.code != this.sercode){
+                                    if(this.code == this.sercode){
                                         this.setMd5()
 
                                         this.spin = false;

@@ -117,6 +117,20 @@
                 </router-link>
             </Row>
             <Row class="my-btn">
+                <router-link to="/uploadbooks">
+                    <Col span="20" class="btn-label">
+
+                        <p>
+                            <Icon type="android-home"></Icon>
+                            上传图书
+                        </p>
+                    </Col>
+                    <Col span="4" class="btn-icon">
+                        <Icon type="ios-arrow-forward"></Icon>
+                    </Col>
+                </router-link>
+            </Row>
+            <Row class="my-btn">
                 <Button class="layout" @click="layout">退出登录</Button>
             </Row>
         </Row>
