@@ -69,6 +69,9 @@
         }
       }
     },
+    created(){
+
+    }
   }
 </script>
 <style lang="scss">

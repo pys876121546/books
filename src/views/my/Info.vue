@@ -107,6 +107,7 @@
 </template>
 
 <script>
+
     import { userInfo ,upuserInfo } from '@/request/api';// 导入我们的api接口
     export default {
         data () {
@@ -141,18 +142,23 @@
                 })
             },
             getinfo(){
-                userInfo(localStorage.getItem('sessionId')).then(res=>{
-                    this.spin=false
-                    localStorage.setItem('userdata',JSON.stringify(res.data))
-                    console.log('用户数据已储存')
+                this.$lf.getItem('sessionId').then(value=> {
+                    userInfo(value).then(res => {
+                        this.$lf.setItem('userdata', res.data).then(value => {
+                            console.log('用户数据已储存')
+                            this.spin = false;
+                        })
+
+                    })
                 })
             }
         },
         created() {
             this.$store.commit('hidetabShow');
-            var userdata = localStorage.getItem('userdata');
-            this.userdata = JSON.parse(userdata);
-            this.spin =false;
+            this.$lf.getItem('userdata').then(value=>{
+                this.userdata =value
+                this.spin = false;
+            })
         }
     }
 </script>

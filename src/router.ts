@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './views/Index.vue'
+import Localforage from 'localforage'
 
 Vue.use(Router)
 
@@ -11,20 +12,47 @@ const router = new Router({
         {
             path: '/',
             name: 'index',
-            meta: {
-                requireAuth: true
-            },
             component: Index,
-            children: []
+            children: [{
+                path: '/',
+                name: 'index',
+                meta: {
+                    requireAuth: true
+                },
+                component: () => import(/* webpackChunkName: "about" */ './views/index/Index.vue'),
+            },{
+                path: '/detail/:id',
+                name: 'detail',
+                meta: {
+                    requireAuth: true
+                },
+                component: () => import(/* webpackChunkName: "about" */ './views/index/Detail.vue'),
+            }]
         },
         {
-            path: '/shop',
-            name: 'shop',
+            path: '/bookcase',
+            name: 'bookcase',
             meta: {
                 requireAuth: true
             },
-            component: () => import(/* webpackChunkName: "about" */ './views/Shop.vue'),
-            children: []
+            component: () => import(/* webpackChunkName: "about" */ './views/Bookcase.vue'),
+            children: [{
+                path: '/bookcase',
+                name: 'bookcase',
+                meta: {
+                    requireAuth: true
+                },
+                component: () => import(/* webpackChunkName: "about" */ './views/bookcase/Bookcase.vue'),
+            },
+                {
+                    path: '/ebook/:id',
+                    name: 'ebook',
+                    meta: {
+                        requireAuth: true
+                    },
+                    component: () => import(/* webpackChunkName: "about" */ './views/bookcase/Ebook.vue'),
+                    children: []
+                },]
         },
         {
             path: '/my',
@@ -134,20 +162,32 @@ const router = new Router({
             component: () => import(/* webpackChunkName: "about" */ './views/Register.vue'),
             children: []
         },
+        {
+            path: '/uploadbooks',
+            name: 'uploadbooks',
+            meta: {
+                requireAuth: true
+            },
+            component: () => import(/* webpackChunkName: "about" */ './views/UpLoadBooks.vue'),
+            children: []
+        },
 
 
     ]
 })
 router.beforeEach((to, from, next) => {
     if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限
-        if (localStorage.getItem('sessionId') != "undefined" && localStorage.getItem('sessionId') != undefined) {// 判断是否登录
-            next()
-        } else {// 没登录则跳转到登录界面
-            next({
-                path: '/login',
-                query: {redirect: to.fullPath}
-            })
-        }
+        Localforage.getItem('sessionId').then(value=> {
+            if ( value != "undefined" && value != undefined) {// 判断是否登录
+                next()
+            } else {// 没登录则跳转到登录界面
+                next({
+                    path: '/login',
+                    query: {redirect: to.fullPath}
+                })
+            }
+        })
+
     } else {
         next()
     }

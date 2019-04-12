@@ -96,15 +96,14 @@
         created() {
             this.historyH = (`${document.documentElement.clientHeight}`*1 - 40 -200-46)+'px'
             this.$store.commit('hidetabShow');
+            this.$lf.getItem('userdata').then(value=>{
+                this.userdata =value
+            })
+            this.$lf.getItem('trading_list').then(value=>{
+                this.trading =value
+                this.spin = false
+            })
 
-
-            var userdata = localStorage.getItem('userdata');
-            this.userdata = JSON.parse(userdata);
-
-
-            var trading_list = localStorage.getItem('trading_list');
-            this.trading = JSON.parse(trading_list);
-            this.spin = false
 
 
         }

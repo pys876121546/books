@@ -45,28 +45,40 @@
             deleteMessage(id){
                 this.spin=true;
                 console.log('del')
-                this.deldata.sessiodId = localStorage.getItem('sessionId');
-                this.deldata.delid = id;
-                message_del(this.deldata).then(res=>{
-                    this.deldata=[]
-                    this.get_message();
-                }).catch(err=>{
-                    this.spin=false;
-                    this.$Message.error('网络错误，无法删除')
+                this.$lf.getItem('sessionId').then(value=>{
+                    this.deldata.sessiodId = value;
+                    this.deldata.delid = id;
+                    message_del(this.deldata).then(res=>{
+                        this.deldata=[]
+                        this.get_message();
+                    }).catch(err=>{
+                        this.spin=false;
+                        this.$Message.error('网络错误，无法删除')
+                    })
                 })
+
+
             },
             get_message(){
-                message_list(localStorage.getItem('sessionId')).then(res=>{
-                    this.spin=false;
-                    localStorage.setItem('message_list',JSON.stringify(res.data))
+                this.$lf.getItem('sessionId').then(value=>{
 
-                })
+                    message_list(value).then(res=>{
+                        this.message= res.data
+                        this.$lf.setItem('message_list',res.data).then(res=>{
+                            this.spin=false;
+                            console.log('消息数据已储存')
+                        }).catch(err=>{
+                            console.log('消息数据储存失败')
+                        });
+                    })
+                });
             }
         },
         created() {
             this.$store.commit('hidetabShow');
-            var message_list = localStorage.getItem('message_list');
-            this.message = JSON.parse(message_list);
+            this.$lf.getItem('message_list').then(value=>{
+                this.message= value
+            })
             this.listH = (`${document.documentElement.clientHeight}`*1 - 41)+'px'
             this.spin =false;
         }

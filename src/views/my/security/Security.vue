@@ -157,29 +157,32 @@
         },
         created() {
             this.$store.commit('hidetabShow');
-            userInfo(localStorage.getItem('sessionId')).then(res=>{
-                if(res.status ==0){
-                    this.spin=false
-                    this.userdata = res.data
-                    let test = this.userdata.phone.split('');
-                    for(var i = 4;i<8;i++){
-                        test.splice(i,i,'*');
+            this.$lf.getItem('sessionId').then(value=>{
+                userInfo(value).then(res=>{
+                    if(res.status ==0){
+                        this.spin=false
+                        this.userdata = res.data
+                        let test = this.userdata.phone.split('');
+                        for(var i = 4;i<8;i++){
+                            test.splice(i,i,'*');
+                        }
+
+                        this.oldphone = test.join('')+this.userdata.phone.substring(8,11);
+                    }else if(res.status == 1){
+                        //未登录状态
+                        this.spin =false;
+
                     }
+                }).catch(err =>{
+                    setTimeout(()=>{
+                        this.spin =false;
+                        this.$Message.error('网络错误，请联网后重试');
+                        this.$router.back()
+                    },3000)
 
-                    this.oldphone = test.join('')+this.userdata.phone.substring(8,11);
-                }else if(res.status == 1){
-                    //未登录状态
-                    this.spin =false;
-
-                }
-            }).catch(err =>{
-                setTimeout(()=>{
-                    this.spin =false;
-                    this.$Message.error('网络错误，请联网后重试');
-                    this.$router.back()
-                },3000)
-
+                })
             })
+
         },
     }
 </script>

@@ -91,20 +91,32 @@
                             this.spin =false;
                             this.$Loading.finish();
                             this.$Message.success(res.msg);
-                            localStorage.setItem('sessionId', res.sessionId)
-                            userInfo(localStorage.getItem('sessionId')).then(res=>{
-                                localStorage.setItem('userdata',JSON.stringify(res.data))
-                                console.log('用户数据已储存')
-                            })
-                            trading_list(localStorage.getItem('sessionId')).then(res=>{
-                                localStorage.setItem('trading_list',JSON.stringify(res.data))
-                                console.log('订单数据已储存')
-                            })
-                            message_list(localStorage.getItem('sessionId')).then(res=>{
-                                localStorage.setItem('message_list',JSON.stringify(res.data))
-                                console.log('消息数据已储存')
-                            })
-                            this.$router.push({path:'/',replace:true});
+                            this.$lf.setItem('sessionId',res.sessionId).then(value=>{
+                                console.log(res)
+                                userInfo(value).then(res=>{
+                                    this.$lf.setItem('userdata',res.data).then(res=>{
+                                        console.log('用户数据已储存')
+                                    }).catch(err=>{
+                                        console.log('用户数据储存失败')
+                                    });
+                                })
+                                trading_list(value).then(res=>{
+                                    this.$lf.setItem('trading_list',res.data).then(res=>{
+                                        console.log('订单数据已储存')
+                                    }).catch(err=>{
+                                        console.log('订单数据储存失败')
+                                    });
+                                })
+                                message_list(value).then(res=>{
+                                    this.$lf.setItem('message_list',res.data).then(res=>{
+                                        console.log('消息数据已储存')
+                                    }).catch(err=>{
+                                        console.log('消息数据储存失败')
+                                    });
+                                })
+                                this.$router.push({path:'/',replace:true});
+                            });
+
 
                         } else {
                             this.$Message.error(res.msg);
