@@ -1,5 +1,11 @@
 # books
 
+一款基于vue-cli3开发的书城类pwa网站，主要功能有商城、排行榜、电子书阅读、迪欧按字数字号等相关设置、电子书购买、充值等（部分功能尚未完善，正在不断更新）
+
+采用技术有 epubjs、axios、iview、vue-route、vuex等
+
+配套后台为books-server
+
 ## Project setup
 ```
 npm install
